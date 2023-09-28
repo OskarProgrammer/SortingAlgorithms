@@ -25,12 +25,29 @@ class Sort(object):
                     pass
         return array
     
-    def insertSort(self, array: list) -> list:
-        ...
+    def insertSort(self, array: list):
+        n = len(array)
 
-        
-randomList = [random.randrange(-20,100) for x in range(100)]
+        if n<=1:
+            return
+
+        for x in range(1, n):
+            current = array[x]
+            previousIndex = x-1
+            while previousIndex >= 0 and current < array[previousIndex]:
+                array[previousIndex + 1] = array[previousIndex]
+                previousIndex -= 1
+
+            array[previousIndex + 1] = current
 
 sort = Sort()
+
+randomList = [random.randrange(-20,100) for x in range(100)]
+
 print(sort.quickSort(randomList))
 print(sort.bumbleSort(randomList))
+
+randomList = [random.randrange(-20,100) for x in range(100)]
+
+sort.insertSort(randomList)
+print(randomList)
