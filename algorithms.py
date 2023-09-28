@@ -1,6 +1,44 @@
 import random
 
-class Sort(object):
+class Helper(object):
+    def merge(self,arr, l, m, r):
+        n1 = m - l + 1
+        n2 = r - m
+
+        R = [0] * (n2)
+        L = [0] * (n1)
+ 
+        for i in range(0, n1):
+            L[i] = arr[l + i]
+    
+        for j in range(0, n2):
+            R[j] = arr[m + 1 + j]
+ 
+        i = 0     
+        j = 0    
+        k = l    
+ 
+        while i < n1 and j < n2:
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < n1:
+            arr[k] = L[i]
+            i += 1
+            k += 1
+ 
+        while j < n2:
+            arr[k] = R[j]
+            j += 1
+            k += 1
+ 
+
+class Sort(Helper):
    
     def quickSort(self, array: list) -> list:
         if len(array) <= 1:
@@ -40,6 +78,16 @@ class Sort(object):
 
             array[previousIndex + 1] = current
 
+    def mergeSort(self, array, l, r):
+        if l < r:
+
+            m = l+(r-l)//2
+
+            self.mergeSort(array, l, m)
+            self.mergeSort(array, m+1, r)
+            self.merge(array, l, m, r)
+
+
 sort = Sort()
 
 randomList = [random.randrange(-20,100) for x in range(100)]
@@ -50,4 +98,9 @@ print(sort.bumbleSort(randomList))
 randomList = [random.randrange(-20,100) for x in range(100)]
 
 sort.insertSort(randomList)
+print(randomList)
+
+randomList = [random.randrange(-20,100) for x in range(100)]
+
+sort.mergeSort(randomList, 0, len(randomList)-1)
 print(randomList)
